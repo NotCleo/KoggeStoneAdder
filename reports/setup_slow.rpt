@@ -1,0 +1,46 @@
+Startpoint: _58_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _53_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------
+             0.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.3000    0.3000   clock network delay (ideal)
+             0.0000    0.0000    0.3000 ^ _58_/CK (DFFR_X1)
+   4.0132    0.0247    0.2714    0.5714 v _58_/Q (DFFR_X1)
+             0.0247    0.0000    0.5714 v _33_/A2 (OR2_X1)
+   1.4013    0.0299    0.1847    0.7560 v _33_/ZN (OR2_X1)
+             0.0299    0.0000    0.7560 v _35_/B1 (AOI21_X1)
+   3.8406    0.1199    0.1419    0.8980 ^ _35_/ZN (AOI21_X1)
+             0.1199    0.0000    0.8980 ^ _38_/B1 (OAI21_X1)
+   3.4902    0.0432    0.0809    0.9789 v _38_/ZN (OAI21_X1)
+             0.0432    0.0000    0.9789 v _41_/B1 (AOI21_X1)
+   3.8406    0.1199    0.1474    1.1262 ^ _41_/ZN (AOI21_X1)
+             0.1199    0.0000    1.1262 ^ _44_/B1 (OAI21_X1)
+   0.8352    0.0337    0.0552    1.1814 v _44_/ZN (OAI21_X1)
+             0.0337    0.0000    1.1814 v hold_buf_4_0/A (BUF_X1)
+   0.8352    0.0146    0.0910    1.2724 v hold_buf_4_0/Z (BUF_X1)
+             0.0146    0.0000    1.2724 v hold_buf_4_1/A (BUF_X1)
+   0.8352    0.0146    0.0799    1.3523 v hold_buf_4_1/Z (BUF_X1)
+             0.0146    0.0000    1.3523 v hold_buf_4_2/A (BUF_X1)
+   0.8352    0.0146    0.0799    1.4322 v hold_buf_4_2/Z (BUF_X1)
+             0.0146    0.0000    1.4322 v hold_buf_4_3/A (BUF_X1)
+   1.0199    0.0150    0.0810    1.5131 v hold_buf_4_3/Z (BUF_X1)
+             0.0150    0.0000    1.5131 v _53_/D (DFFR_X1)
+                                 1.5131   data arrival time
+
+             0.0000    2.0000    2.0000   clock clk (rise edge)
+                       0.3000    2.3000   clock network delay (ideal)
+                      -0.1000    2.2000   clock uncertainty
+                       0.0000    2.2000   clock reconvergence pessimism
+                                 2.2000 ^ _53_/CK (DFFR_X1)
+                      -0.1556    2.0444   library setup time
+                                 2.0444   data required time
+-------------------------------------------------------------------------------
+                                 2.0444   data required time
+                                -1.5131   data arrival time
+-------------------------------------------------------------------------------
+                                 0.5313   slack (MET)
+
+

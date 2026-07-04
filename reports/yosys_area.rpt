@@ -1,0 +1,569 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.33 (git sha1 2584903a060)
+
+
+-- Executing script file `scripts/synth.tcl' --
+
+1. Executing Liberty frontend: lib/NangateOpenCellLibrary_typical.lib
+Imported 134 cell types from liberty file.
+
+2. Executing Verilog-2005 frontend: rtl/ksa4_reg.v
+Parsing Verilog input from `rtl/ksa4_reg.v' to AST representation.
+Generating RTLIL representation for module `\ksa4_reg'.
+Successfully finished Verilog frontend.
+
+3. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1. Analyzing design hierarchy..
+Top module:  \ksa4_reg
+
+3.2. Analyzing design hierarchy..
+Top module:  \ksa4_reg
+Removed 0 unused modules.
+
+4. Executing PROC pass (convert processes to netlists).
+
+4.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$rtl/ksa4_reg.v:62$21 in module ksa4_reg.
+Marked 1 switch rules as full_case in process $proc$rtl/ksa4_reg.v:18$1 in module ksa4_reg.
+Removed a total of 0 dead cases.
+
+4.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 5 redundant assignments.
+Promoted 0 assignments to connections.
+
+4.4. Executing PROC_INIT pass (extract init attributes).
+
+4.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\ksa4_reg.$proc$rtl/ksa4_reg.v:62$21'.
+Found async reset \rst_n in `\ksa4_reg.$proc$rtl/ksa4_reg.v:18$1'.
+
+4.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+4.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ksa4_reg.$proc$rtl/ksa4_reg.v:62$21'.
+     1/2: $0\cout[0:0]
+     2/2: $0\sum[3:0]
+Creating decoders for process `\ksa4_reg.$proc$rtl/ksa4_reg.v:18$1'.
+     1/3: $0\cin_q[0:0]
+     2/3: $0\b_q[3:0]
+     3/3: $0\a_q[3:0]
+
+4.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+4.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ksa4_reg.\sum' using process `\ksa4_reg.$proc$rtl/ksa4_reg.v:62$21'.
+  created $adff cell `$procdff$23' with positive edge clock and negative level reset.
+Creating register for signal `\ksa4_reg.\cout' using process `\ksa4_reg.$proc$rtl/ksa4_reg.v:62$21'.
+  created $adff cell `$procdff$24' with positive edge clock and negative level reset.
+Creating register for signal `\ksa4_reg.\a_q' using process `\ksa4_reg.$proc$rtl/ksa4_reg.v:18$1'.
+  created $adff cell `$procdff$25' with positive edge clock and negative level reset.
+Creating register for signal `\ksa4_reg.\b_q' using process `\ksa4_reg.$proc$rtl/ksa4_reg.v:18$1'.
+  created $adff cell `$procdff$26' with positive edge clock and negative level reset.
+Creating register for signal `\ksa4_reg.\cin_q' using process `\ksa4_reg.$proc$rtl/ksa4_reg.v:18$1'.
+  created $adff cell `$procdff$27' with positive edge clock and negative level reset.
+
+4.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `ksa4_reg.$proc$rtl/ksa4_reg.v:62$21'.
+Removing empty process `ksa4_reg.$proc$rtl/ksa4_reg.v:18$1'.
+Cleaned up 0 empty switches.
+
+4.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+5. Executing OPT pass (performing simple optimizations).
+
+5.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+5.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ksa4_reg'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+5.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ksa4_reg..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+5.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ksa4_reg.
+Performed a total of 0 changes.
+
+5.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ksa4_reg'.
+Removed a total of 0 cells.
+
+5.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ksa4_reg..
+Removed 2 unused cells and 19 unused wires.
+<suppressed ~3 debug messages>
+
+5.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+5.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+5.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ksa4_reg..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+5.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ksa4_reg.
+Performed a total of 0 changes.
+
+5.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ksa4_reg'.
+Removed a total of 0 cells.
+
+5.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ksa4_reg..
+
+5.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+5.16. Finished OPT passes. (There is nothing left to do.)
+
+6. Executing FSM pass (extract and optimize FSM).
+
+6.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+6.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+6.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+6.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ksa4_reg..
+
+6.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+6.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+6.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+6.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+7. Executing OPT pass (performing simple optimizations).
+
+7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ksa4_reg'.
+Removed a total of 0 cells.
+
+7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ksa4_reg..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ksa4_reg.
+Performed a total of 0 changes.
+
+7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ksa4_reg'.
+Removed a total of 0 cells.
+
+7.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ksa4_reg..
+
+7.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+7.9. Finished OPT passes. (There is nothing left to do.)
+
+8. Executing MEMORY pass.
+
+8.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+8.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+8.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+8.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+8.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+8.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ksa4_reg..
+
+8.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+8.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+8.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ksa4_reg..
+
+8.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+8.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+9. Executing OPT pass (performing simple optimizations).
+
+9.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+9.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ksa4_reg'.
+Removed a total of 0 cells.
+
+9.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ksa4_reg..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ksa4_reg.
+Performed a total of 0 changes.
+
+9.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ksa4_reg'.
+Removed a total of 0 cells.
+
+9.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+9.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ksa4_reg..
+
+9.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+9.9. Finished OPT passes. (There is nothing left to do.)
+
+10. Executing TECHMAP pass (map to technology primitives).
+
+10.1. Executing Verilog-2005 frontend: /usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+10.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $adff.
+No more expansions possible.
+<suppressed ~95 debug messages>
+
+11. Executing OPT pass (performing simple optimizations).
+
+11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ksa4_reg'.
+Removed a total of 0 cells.
+
+11.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ksa4_reg..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+11.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ksa4_reg.
+Performed a total of 0 changes.
+
+11.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ksa4_reg'.
+Removed a total of 0 cells.
+
+11.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ksa4_reg..
+
+11.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ksa4_reg.
+
+11.9. Finished OPT passes. (There is nothing left to do.)
+
+12. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X2' - skipping.
+  cell DFF_X1 (noninv, pins=4, area=4.52) is a direct match for cell type $_DFF_P_.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X2' - skipping.
+  cell DFFR_X1 (noninv, pins=5, area=5.32) is a direct match for cell type $_DFF_PN0_.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X2' - skipping.
+  cell DFFS_X1 (noninv, pins=5, area=5.32) is a direct match for cell type $_DFF_PN1_.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X2' - skipping.
+  cell DFFRS_X1 (noninv, pins=6, area=6.38) is a direct match for cell type $_DFFSR_PNN_.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFRS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFR_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFFS_X2' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X1' - skipping.
+Warning: Found unsupported expression 'SE*SI+D*!SE' in pin attribute of cell 'SDFF_X2' - skipping.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \DFF_X1 _DFF_P_ (.CK( C), .D( D), .Q( Q), .QN(~Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \DFFR_X1 _DFF_PN0_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .RN( R));
+    \DFFS_X1 _DFF_PN1_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .SN( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFSR_NNN_
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \DFFRS_X1 _DFFSR_PNN_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .RN( R), .SN( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+12.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\ksa4_reg':
+  mapped 14 $_DFF_PN0_ cells to \DFFR_X1 cells.
+
+13. Executing ABC pass (technology mapping using ABC).
+
+13.1. Extracting gate netlist of module `\ksa4_reg' to `<abc-temp-dir>/input.blif'..
+Extracted 26 gates and 35 wires to a netlist network with 9 inputs and 5 outputs.
+
+13.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /home/amrut/projects/ksa4_synth_sta/lib/NangateOpenCellLibrary_typical.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.05 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "ANTENNA_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X2".
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X16" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X32" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC0_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC1_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X16".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TINV_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "TLAT_X1".
+ABC: Library "NangateOpenCellLibrary" from "/home/amrut/projects/ksa4_synth_sta/lib/NangateOpenCellLibrary_typical.lib" has 90 cells (35 skipped: 21 seq; 6 tri-state; 8 no func; 9 dont_use).  Time =     0.08 sec
+ABC: Memory =   11.38 MB. Time =     0.08 sec
+ABC: Warning: Detected 2 multi-output gates (for example, "FA_X1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+13.1.2. Re-integrating ABC results.
+ABC RESULTS:          NAND2_X1 cells:        2
+ABC RESULTS:           AND2_X1 cells:        2
+ABC RESULTS:            OR2_X1 cells:        2
+ABC RESULTS:          AOI21_X1 cells:        2
+ABC RESULTS:           NOR2_X1 cells:        2
+ABC RESULTS:           XOR2_X1 cells:        2
+ABC RESULTS:          OAI21_X1 cells:        2
+ABC RESULTS:          XNOR2_X1 cells:        6
+ABC RESULTS:        internal signals:       21
+ABC RESULTS:           input signals:        9
+ABC RESULTS:          output signals:        5
+Removing temp directory.
+Removed 0 unused cells and 25 unused wires.
+
+14. Executing Verilog backend.
+
+14.1. Executing BMUXMAP pass.
+
+14.2. Executing DEMUXMAP pass.
+Dumping module `\ksa4_reg'.
+
+15. Printing statistics.
+
+=== ksa4_reg ===
+
+   Number of wires:                 42
+   Number of wire bits:             63
+   Number of public wires:          13
+   Number of public wire bits:      34
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 34
+     AND2_X1                         2
+     AOI21_X1                        2
+     DFFR_X1                        14
+     NAND2_X1                        2
+     NOR2_X1                         2
+     OAI21_X1                        2
+     OR2_X1                          2
+     XNOR2_X1                        6
+     XOR2_X1                         2
+
+   Chip area for module '\ksa4_reg': 98.952000
+
+Warnings: 8 unique messages, 72 total
+End of script. Logfile hash: 417b7af05c, CPU: user 0.38s system 0.02s, MEM: 27.21 MB peak
+Yosys 0.33 (git sha1 2584903a060)
+Time spent: 28% 1x abc (0 sec), 20% 2x read_liberty (0 sec), ...

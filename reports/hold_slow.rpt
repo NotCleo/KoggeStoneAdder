@@ -1,0 +1,28 @@
+Startpoint: a[0] (input port clocked by clk)
+Endpoint: _54_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.3000    0.3000   clock network delay (ideal)
+   0.4000    0.7000 ^ input external delay
+   0.0051    0.7051 ^ a[0] (in)
+   0.0000    0.7051 ^ _54_/D (DFFR_X1)
+             0.7051   data arrival time
+
+   0.0000    0.0000   clock clk (rise edge)
+   0.3000    0.3000   clock network delay (ideal)
+   0.1000    0.4000   clock uncertainty
+   0.0000    0.4000   clock reconvergence pessimism
+             0.4000 ^ _54_/CK (DFFR_X1)
+   0.0147    0.4147   library hold time
+             0.4147   data required time
+-------------------------------------------------------------
+             0.4147   data required time
+            -0.7051   data arrival time
+-------------------------------------------------------------
+             0.2904   slack (MET)
+
+

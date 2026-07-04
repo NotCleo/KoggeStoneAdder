@@ -1,0 +1,27 @@
+Startpoint: _53_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: cout (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------
+             0.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.3000    0.3000   clock network delay (ideal)
+             0.0000    0.0000    0.3000 ^ _53_/CK (DFFR_X1)
+   0.0200    0.0040    0.0546    0.3546 ^ _53_/Q (DFFR_X1)
+             0.0040    0.0000    0.3546 ^ cout (out)
+                                 0.3546   data arrival time
+
+             0.0000    2.0000    2.0000   clock clk (rise edge)
+                       0.3000    2.3000   clock network delay (ideal)
+                      -0.1000    2.2000   clock uncertainty
+                       0.0000    2.2000   clock reconvergence pessimism
+                      -0.4000    1.8000   output external delay
+                                 1.8000   data required time
+-------------------------------------------------------------------------------
+                                 1.8000   data required time
+                                -0.3546   data arrival time
+-------------------------------------------------------------------------------
+                                 1.4454   slack (MET)
+
+

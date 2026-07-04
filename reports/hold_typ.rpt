@@ -1,0 +1,33 @@
+Startpoint: _55_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _51_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.3000    0.3000   clock network delay (ideal)
+   0.0000    0.3000 ^ _55_/CK (DFFR_X1)
+   0.0903    0.3903 v _55_/Q (DFFR_X1)
+   0.0149    0.4052 ^ _31_/ZN (NAND2_X1)
+   0.0167    0.4219 v _38_/ZN (OAI21_X1)
+   0.0229    0.4448 ^ _47_/ZN (XNOR2_X1)
+   0.0207    0.4655 ^ hold_buf_2_0/Z (BUF_X1)
+   0.0190    0.4846 ^ hold_buf_2_1/Z (BUF_X1)
+   0.0000    0.4846 ^ _51_/D (DFFR_X1)
+             0.4846   data arrival time
+
+   0.0000    0.0000   clock clk (rise edge)
+   0.3000    0.3000   clock network delay (ideal)
+   0.1000    0.4000   clock uncertainty
+   0.0000    0.4000   clock reconvergence pessimism
+             0.4000 ^ _51_/CK (DFFR_X1)
+   0.0045    0.4045   library hold time
+             0.4045   data required time
+-------------------------------------------------------------
+             0.4045   data required time
+            -0.4846   data arrival time
+-------------------------------------------------------------
+             0.0800   slack (MET)
+
+

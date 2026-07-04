@@ -21,23 +21,7 @@ then everything was re-verified by exhaustive gate-level simulation.
 <img width="1024" height="672" alt="power" src="https://github.com/user-attachments/assets/4af8e4c1-21ec-4162-b3d5-446fd2e8daa1" />
 <img width="1664" height="640" alt="slack_corners" src="https://github.com/user-attachments/assets/7bcb56ec-af7b-4928-b67a-2158dc6e1ac4" />
 
-## Flow
 
-```mermaid
-flowchart LR
-    RTL["rtl/ksa4_reg.v<br/>registered 4-bit KSA"] --> TB["Icarus Verilog TB<br/>512 exhaustive vectors"]
-    RTL --> YS["Yosys synthesis<br/>scripts/synth.tcl"]
-    LIB["Nangate45 .lib<br/>typ / slow / fast"] --> YS
-    YS --> NL["netlist/ksa4_netlist.v"]
-    SDC["constraints/ksa4.sdc"] --> STA
-    NL --> STA["OpenSTA ×3 corners<br/>scripts/run_sta_*.tcl"]
-    LIB --> STA
-    STA -->|"hold VIOLATED @ fast"| ECO["manual min-delay ECO<br/>14× BUF_X1"]
-    ECO --> NL2["netlist/ksa4_netlist_holdfix.v"]
-    NL2 --> STA2["OpenSTA rerun ×3<br/>all corners MET"]
-    NL2 --> GLS["gate-level sim vs stdcells.v<br/>512/512 pass"]
-    STA2 --> RPT["reports/"]
-```
 
 ## Tools and libraries
 

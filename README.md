@@ -20,6 +20,7 @@ then everything was re-verified by exhaustive gate-level simulation.
 
 <img width="1024" height="672" alt="power" src="https://github.com/user-attachments/assets/4af8e4c1-21ec-4162-b3d5-446fd2e8daa1" />
 <img width="1664" height="640" alt="slack_corners" src="https://github.com/user-attachments/assets/7bcb56ec-af7b-4928-b67a-2158dc6e1ac4" />
+<img width="1583" height="830" alt="image" src="https://github.com/user-attachments/assets/ce482a0d-30cb-417e-8f33-6cef783e767e" />
 
 
 

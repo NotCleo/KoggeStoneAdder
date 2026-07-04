@@ -1,16 +1,12 @@
-# 4-bit Kogge–Stone Adder — Yosys Synthesis + OpenSTA Multi-Corner STA
+# 4-bit Kogge–Stone Adder
 
-An open-source-EDA equivalent of a Cadence **Genus (synthesis) + Tempus (STA)**
-flow: a registered 4-bit Kogge–Stone adder is synthesized with **Yosys** to the
-**Nangate45** standard-cell library, constrained with a hand-written **SDC**,
+An open-source-EDA flow: 4-bit Kogge–Stone adder is synthesized with **Yosys** to the
+**Nangate45** standard-cell library, constrained with quirky **SDC**,
 and timed with **OpenSTA** at three PVT corners. A real fast-corner **hold
 violation** was found and closed with a manual min-delay buffering **ECO**,
 then everything was re-verified by exhaustive gate-level simulation.
 
-Every number in this README comes directly from a tool report checked into
-[`reports/`](reports/) — nothing is estimated.
-
-## Results at a glance
+## Results
 
 | Metric | Pre-ECO | Post-ECO (final) |
 |---|---|---|
@@ -22,7 +18,8 @@ Every number in this README comes directly from a tool report checked into
 | Power, typical (vectorless estimate) | ≈45.3 µW | ≈51.7 µW |
 | Functional verification | 512/512 vectors (RTL) | 512/512 vectors (RTL **and** gate level) |
 
-![Slack across corners](docs/img/slack_corners.png)
+<img width="1024" height="672" alt="power" src="https://github.com/user-attachments/assets/4af8e4c1-21ec-4162-b3d5-446fd2e8daa1" />
+<img width="1664" height="640" alt="slack_corners" src="https://github.com/user-attachments/assets/7bcb56ec-af7b-4928-b67a-2158dc6e1ac4" />
 
 ## Flow
 
@@ -40,22 +37,6 @@ flowchart LR
     NL2 --> STA2["OpenSTA rerun ×3<br/>all corners MET"]
     NL2 --> GLS["gate-level sim vs stdcells.v<br/>512/512 pass"]
     STA2 --> RPT["reports/"]
-```
-
-## Repository layout
-
-```
-rtl/           ksa4_reg.v            registered 4-bit Kogge–Stone adder
-tb/            ksa4_tb.v             exhaustive self-checking testbench
-lib/           NangateOpenCellLibrary_{typical,slow,fast}.lib
-constraints/   ksa4.sdc              hand-written constraints
-scripts/       synth.tcl             Yosys synthesis script
-               run_sta_{slow,fast,typ}.tcl   per-corner OpenSTA runs
-               run_power_typ.tcl     vectorless power estimate
-netlist/       ksa4_netlist.v        raw synthesis netlist (pre-ECO)
-               ksa4_netlist_holdfix.v  final netlist after hold-fix ECO
-reports/       all tool output: timing/area/power reports + summary.md
-docs/img/      charts used in this README
 ```
 
 ## Tools and libraries
@@ -97,7 +78,6 @@ Prefix structure:
 | Logic mapping | `abc -liberty <typical.lib>` | `syn_map` / `syn_opt` | ABC technology mapping + optimization to liberty gates |
 | Reporting | `stat -liberty <typical.lib>` | `report_area` | Cell count + area from liberty cell areas |
 
-![Cell inventory](docs/img/cells.png)
 
 ## SDC specification (`constraints/ksa4.sdc`)
 
@@ -113,11 +93,11 @@ Prefix structure:
 | Reset exclusion | false path from async reset `rst_n` | `set_false_path -from` |
 | Multicycle paths | **none, deliberately** — every reg-to-reg path here is a genuine single-cycle path | — |
 
-## STA methodology (OpenSTA, `scripts/run_sta_*.tcl`)
+## STA methodology 
 
 | Aspect | Setting |
 |---|---|
-| Corners | 3 separate runs: slow, typical, fast liberty (Tempus-style dual-corner + baseline) |
+| Corners | 3 separate runs: slow, typical, fast liberty |
 | Setup analysis | `report_checks -path_delay max -fields {slew cap input_pin_activity} -digits 4` |
 | Hold analysis | `report_checks -path_delay min -digits 4` |
 | Slack summaries | `report_wns`, `report_tns` (note: these cover **max/setup paths only** in OpenSTA) |
@@ -137,13 +117,7 @@ toward the slow corner, hold slack tightens toward the fast corner** — setup
 is bounded by the slow library, hold by the fast library, which is why
 dual-corner STA is required at all.
 
-### Power
 
-![Power breakdown](docs/img/power.png)
-
-Vectorless `report_power` at the typical corner (OpenSTA default activity
-assumptions, no SAIF/VCD): **rough estimates, not signoff numbers.** The
-ECO's 14 buffers cost ≈6 µW.
 
 ## Issues faced and fixes
 
@@ -155,36 +129,5 @@ ECO's 14 buffers cost ≈6 µW.
 | 4 | Only the typical Nangate45 `.lib` existed locally | Local copy came from a Fault checkout that ships one corner | Downloaded the slow/fast (and matching typical) corner libs from the OpenSTA upstream examples |
 | 5 | `report_wns`/`report_tns` showed 0.00 while hold was violated | These OpenSTA commands summarize **max (setup) paths only** | Treated `hold_*.rpt` min-path reports as the source of truth for hold status |
 
-## Verification
 
-- **RTL:** exhaustive 512-vector self-checking Icarus testbench (all 16×16×2
-  input combinations) — 512/512 pass.
-- **Post-ECO gate level:** same testbench run against
-  `netlist/ksa4_netlist_holdfix.v` + Nangate45 Verilog cell models — 512/512
-  pass, proving the ECO changed timing only, not function.
 
-## Reproducing
-
-```bash
-# functional sim (RTL)
-iverilog -o ksa4_tb.vvp tb/ksa4_tb.v rtl/ksa4_reg.v && vvp ksa4_tb.vvp
-
-# synthesis (area report -> reports/yosys_area.rpt)
-yosys -s scripts/synth.tcl | tee reports/yosys_area.rpt
-
-# STA, one run per corner (native OpenSTA, or via the OpenLane docker image)
-sta -exit scripts/run_sta_slow.tcl
-sta -exit scripts/run_sta_fast.tcl
-sta -exit scripts/run_sta_typ.tcl
-```
-
-## Honest-reporting notes
-
-- Power is a **vectorless estimate** (default switching activity); with SAIF
-  from the exhaustive testbench it could be made activity-accurate.
-- The +0.0064 ns post-ECO fast-corner hold margin is thin by design: hold
-  fixing pads to just-met because every extra buffer costs setup slack and
-  area, and the 0.10 ns clock uncertainty inside the check is the guard band.
-- The slow-corner setup number is the one that matters for the 500 MHz claim;
-  the typical/fast worst paths are reg→port paths dominated by the 0.40 ns
-  external output delay.
